@@ -45,15 +45,19 @@ class ThreadModel extends Model implements IModel
             $pdo = $this->db->connect(); // Obtener la instancia de PDO
             $query = $pdo->prepare('SELECT * FROM hilo WHERE id = :id');
             $query->execute(['id' => $id]);
+            if ($query->rowCount() > 0) {
+                $thread = $query->fetch(PDO::FETCH_ASSOC);
+                $this->id = $thread['id'];
+                $this->title = $thread['titulo'];
+                $this->content = $thread['contenido'];
+                $this->creationDate = $thread['fecha_creacion'];
+                $this->userId = $thread['usuario_id'];                
+                return $this;
+            }else{
+                return null;
+            }
 
-            $thread = $query->fetch(PDO::FETCH_ASSOC);
-            $this->id = $thread['id'];
-            $this->title = $thread['titulo'];
-            $this->content = $thread['contenido'];
-            $this->creationDate = $thread['fecha_creacion'];
-            $this->userId = $thread['usuario_id'];
-
-            return $this;
+        
         } catch (PDOException $e) {
             error_log($e->getMessage());
         }

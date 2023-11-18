@@ -22,7 +22,12 @@ final class ThreadController extends SessionController
 
     function info($params)
     {
-        $this->view->render('thread/info', ['user' => $this->user, 'thread' => $this->getThreadAllInfo($params[0])]);
+        $thread =  $this->getThreadAllInfo($params[0]);
+        if (!$thread) {
+            $this->redirect('thread');
+        } else {
+            $this->view->render('thread/info', ['user' => $this->user, 'thread' => $thread]);
+        }
     }
     function newthread()
     {
@@ -77,9 +82,9 @@ final class ThreadController extends SessionController
         $answerId = $answerId[0];
         $answer = new AnswerModel();
         $answer->getById($answerId);
-        $threadId =$answer->getThreadId(); 
+        $threadId = $answer->getThreadId();
 
-        if($answer->delete($answerId)){
+        if ($answer->delete($answerId)) {
             $this->redirect('thread/info/' . $threadId,);
         }
     }
@@ -88,6 +93,9 @@ final class ThreadController extends SessionController
     private function getThreadAllInfo($threadId)
     {
         $threadObj = new ThreadModel();
+        if(!$threadObj->getById($threadId)){
+            return null;
+        }
         $thread = $threadObj->getById($threadId)->toArray();
         $thread['usuario'] = $this->getUser($thread['usuario']);
         $thread['respuestas'] = $this->getAnswersByThreadId($thread['id']);
