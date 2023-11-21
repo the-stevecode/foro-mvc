@@ -18,7 +18,7 @@ class App
          */
 
         //verificar si se proporciona un controlador en la url
-        if (!empty($url[0])) {
+        if (isset($url[0])) {
             $this->controllerName = ucfirst($url[0]) . 'Controller';
             unset($url[0]);
         }
@@ -28,7 +28,7 @@ class App
         if (file_exists($controllerFile)) {
             require_once $controllerFile;
         } else {
-            echo 'no existe este recurso';
+            echo '¡Ups! al parecer No existe el recurso que estás buscando';
             exit();
         }
 
@@ -36,8 +36,18 @@ class App
         $this->controller = new $this->controllerName;
 
         //verificar si se proporciona un metodo en la url
-        if (!empty($url[1])) {
-            $this->method = $url[1];
+        if (isset($url[1])) {
+            $requestedMethod = $url[1];
+        
+            // Verificar si el método existe en el controlador
+            if (method_exists($this->controller, $requestedMethod)) {
+                $this->method = $requestedMethod;
+            } else {
+                // El método no existe, manejar la situación
+                echo '¡Ups! al parecer No existe el recurso que estás buscando';
+                exit();
+            }
+        
             unset($url[1]);
         }
 
