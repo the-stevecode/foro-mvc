@@ -2,7 +2,7 @@
     <nav>
         <div class="nav-left">
             <a href="<?php echo  constant('URL') ?>">Inicio</a>
-            <a href="<?php echo  constant('URL') ?>Thread">Hilos</a>
+            <a href="<?php echo  constant('URL') ?>thread">Hilos</a>
         </div>
         <div class="nav-right">
             <?php
