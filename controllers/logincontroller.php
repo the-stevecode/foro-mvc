@@ -26,7 +26,7 @@ final class LoginController extends SessionController
         $auth = new AuthModel();
         $is = $auth->login($username, $password);
         if ($is) {
-            $this->session->set($is);
+            $this->setSession($is);
             $this->redirect('thread');
         }else{
             $this->redirect('login');

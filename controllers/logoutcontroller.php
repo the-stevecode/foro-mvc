@@ -6,7 +6,7 @@ final class LogoutController extends SessionController
     }
 
     public function index(){
-        $this->session->destroy();
+        $this->destroySession();
         $this->redirect('thread');
     }
 }
