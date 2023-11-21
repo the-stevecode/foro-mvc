@@ -38,7 +38,7 @@ Este proyecto está bajo la Licencia [MIT](LICENSE), lo que significa que puedes
 
 ## Contacto
 
-Si tienes preguntas o sugerencias, no dudes en ponerte en contactamé.
+Si tienes preguntas o sugerencias, no dudes en ponerte contacto conmigo.
 
 ---
 
