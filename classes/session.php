@@ -9,10 +9,7 @@ final class Session
     }
     public function existSession()
     {
-        if (isset($_SESSION[$this->sessionName])) {
-            return true; 
-        }
-        return false;
+        return isset($_SESSION[$this->sessionName]) ? true : false;
     }
     public function set($userId)
     {
@@ -21,10 +18,8 @@ final class Session
 
     public function get()
     {
-        if (isset($_SESSION[$this->sessionName])) {
-            return $_SESSION[$this->sessionName]; // Obtener un valor de la sesión
-        }
-        return null;
+        // Obtener un valor de la sesión
+        return $this->existSession() ? $_SESSION[$this->sessionName] : null;
     }
 
     public function destroy()
